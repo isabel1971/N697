@@ -61,6 +61,11 @@
     font-weight: 700;
 }
 
+.container__texto {
+   color: var(--botao-vermelho);
+   font-size:28px;
+   font-weight: 400;
+}
 .container__caixa {
     margin: 0 6em;
 
