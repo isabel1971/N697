@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,5 +81,21 @@
 
         <input type="submit" value="Cadastrar">
     </form>
+    <script>
+        (async () => {
+  const myNewObject = new Parse.Object('MyCustomClassName');
+  myNewObject.set('myCustomKey1Name', 'myCustomKey1Value');
+  myNewObject.set('myCustomKey2Name', 'myCustomKey2Value');
+  try {
+    const result = await myNewObject.save();
+    // Access the Parse Object attributes using the .GET method
+    console.log('object myCustomKey1Name: ', result.get('myCustomKey1Name'));
+    console.log('object myCustomKey2Name: ', result.get('myCustomKey2Name'));
+    console.log('ParseObject created', result);
+  } catch (error) {
+    console.error('Error while creating ParseObject: ', error);
+  }
+})();
+    </script>
 </body>
 </html>
