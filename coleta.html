@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <script src="node_modules/parse/dist/parse.min.js"></script>
-
-    <script>
-    Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
-    // Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
-    Parse.initialize(
-      'ty9sEgqE5VhLKQGBcEjyviAjHNrlKI48GGodrv0v', // This is your Application ID
-      'dhK87cSeQpXaRlLoYl5WQTyVuOP49XZ71IyA0Dwh' // This is your Javascript key
-    );
-    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,14 +56,14 @@
 <body>
     <h1>Cadastro de Usuário</h1>
     <form action="#" method="POST">
-        <label for="Nome">Nome:</label>
-        <input type="text" id="Nome" name="Nome" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
 
-        <label for="CPF_CNPJ">CPF/CNPJ:</label>
-        <input type="text" id="CPF_CNPJ" name="CPF_CNPJ" required>
+        <label for="cpf_cnpj">CPF/CNPJ:</label>
+        <input type="text" id="cpf_cnpj" name="cpf_cnpj" required>
 
-        <label for="Transporte">Tipo de Transporte:</label>
-        <select id="Transporte" name="Transporte" required>
+        <label for="tipo_transporte">Tipo de Transporte:</label>
+        <select id="tipo_transporte" name="tipo_transporte" required>
             <option value="carro">Carro</option>
             <option value="moto">Moto</option>
             <option value="bicicleta">Bicicleta</option>
@@ -84,26 +73,10 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="Telefone">Telefone:</label>
-        <input type="tel" id="Telefone" name="Telefone" required>
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required>
 
         <input type="submit" value="Cadastrar">
     </form>
-    <script>
-        (async () => {
-  const myNewObject = new Parse.Object('MyCustomClassName');
-  myNewObject.set('myCustomKey1Name', 'myCustomKey1Value');
-  myNewObject.set('myCustomKey2Name', 'myCustomKey2Value');
-  try {
-    const result = await myNewObject.save();
-    // Access the Parse Object attributes using the .GET method
-    console.log('object myCustomKey1Name: ', result.get('myCustomKey1Name'));
-    console.log('object myCustomKey2Name: ', result.get('myCustomKey2Name'));
-    console.log('ParseObject created', result);
-  } catch (error) {
-    console.error('Error while creating ParseObject: ', error);
-  }
-})();
-    </script>
 </body>
 </html>
