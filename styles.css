@@ -81,4 +81,11 @@
     margin: 5em 3em;
 }
 
- 
+.doador {
+   background-image: url("img/doação.webp");
+   background-repeat: no-repeat;
+   height: 100vh;
+   background-size: cover;
+   align-items: center;
+   text-align: center;  
+}
