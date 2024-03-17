@@ -6,55 +6,7 @@
     <title>Cadastro de Produtos</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-form {
-    max-width: 400px;
-    margin: auto;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.conditionalFieldsDonation {
-    display: none;
-}
-
-.conditionalFieldsPix {
-    display: none;
-}
-
+        /* Seus estilos CSS aqui */
     </style>
 </head>
 <body>
@@ -94,8 +46,64 @@ button:hover {
 
         <button type="button" onclick="submitForm()">Cadastrar Produto</button>
     </form>
+    <div id="result></div>
+    
+    <script>
+        function toggleConditionalFields() {
+            var donationType = document.getElementById("donationType").value;
+            var conditionalFieldsDonation = document.querySelector(".conditionalFieldsDonation");
+            var conditionalFieldsPix = document.querySelector(".conditionalFieldsPix");
 
-    <script src="https://www.parsecdn.com/js/parse-1.18.0.min.js"></script>
-    <script src="script.js"></script>
+            if (donationType === "sim") {
+                conditionalFieldsDonation.style.display = "none";
+                conditionalFieldsPix.style.display = "block";
+            } else {
+                conditionalFieldsDonation.style.display = "block";
+                conditionalFieldsPix.style.display = "none";
+            }
+        }
+
+        async function submitForm() {
+            var productName = document.getElementById("productName").value;
+            var quantity = document.getElementById("quantity").value;
+            var perishable = document.getElementById("perishable").value;
+            var expirationDate = document.getElementById("expirationDate").value;
+            var donationType = document.getElementById("donationType").value;
+            var donationAmount = document.getElementById("donationAmount").value;
+
+            console.log("Doação em Espécie: " + donationType);
+
+            if (donationType === "sim") {
+                console.log("Entraremos em contato para informar a chave Pix para realização de sua doação.");
+                console.log("Valor da Doação: " + donationAmount);
+            } else {
+                console.log("Nome do Produto: " + productName);
+                console.log("Quantidade: " + quantity);
+                console.log("Perecível: " + perishable);
+                console.log("Data de Validade: " + expirationDate);
+                
+                // Lógica do Parse
+                Parse.serverURL = 'https://parseapi.back4app.com';
+                Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd', 'IKk4O6FgJciA82YwWjEcq1Csbd5HerFC7oQVyrLw');
+                
+                const myNewObject = new Parse.Object('Produtos');
+                myNewObject.set('NomeProduto', productName);
+                myNewObject.set('quantidade', parseInt(quantity));
+                myNewObject.set('perecivel', perishable === "sim");
+                myNewObject.set('dataValidade', new Date(expirationDate));
+                myNewObject.set('doacaoEspecie', false);
+                myNewObject.set('valorDoacao', null);
+                
+                try {
+                    const result = await myNewObject.save();
+                    console.log('Produtos created', result);
+                    document.getElementById("result").innerText = 'Produtos criados: ' + JSON.stringify(result);
+                } catch (error) {
+                    console.error('Error while creating Produtos: ', error);
+                    document.getElementById("result").innerText = 'Erro ao criar produtos: ' + error.message;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
