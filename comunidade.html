@@ -1,52 +1,61 @@
 <!doctype html>
-<html> 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html>
 
-        <link rel="stylesheet" type="text/css" href="formstyles.css" media="screen">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Título da página -->
-        <title>Cadastro Comunidade</title>
-    </head>
+    <link rel="stylesheet" type="text/css" href="comunidades.css" media="screen">
 
-    <body>  
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script type="text/javascript" src="comunidade.js"></script>
+
+    <!-- Título da página -->
+    <title>Cadastro Comunidade</title>
+</head>
+
+<body>
+
+    <div id="pagina-comunidade">
 
         <!-- Cabeçalho com título e subtítulo -->
-        <div>
+        <div id="cabecalho">
             <h1 id="titulo">Cadastro de Comunidades</h1>
             <h2 id="subtitulo">Complete suas informações</h2>
-            <br>
         </div>
 
         <!-- Início do formulário -->
-        <form>
-
+        <form onsubmit="criarComunidade(event)">
             <fieldset class="grupo">
-
-                <div class="campo comunidade">
+                <div class="campo_comunidade">
                     <label for="nome comunidade"><strong>Nome da Comunidade</strong></label>
-                    <input type="text" name="nome comunidade" id="nome comunidade" required>
+                    <input type="text" name="nome comunidade" id="txtNomeComunidade" required>
                 </div>
-
-                <div class="campo comunidade">
+                <div class="campo_comunidade">
                     <label for="endereco comunidade"><strong>Endereço Completo</strong></label>
-                    <input type="text" name="endereco comunidade" id="endereco comunidade" required>
+                    <input type="text" name="endereco comunidade" id="txtEnderecoComunidade" required>
                 </div>
 
-                <div class="campo comunidade">
+                <div class="campo_comunidade">
                     <label for="email comunidade"><strong>Email da Comunidade</strong></label>
-                    <input type="email" name="email comunidade" id="email comunidade" required>
+                    <input type="email" name="email comunidade" id="txtEmailComunidade" required>
                 </div>
 
-                <div class="campo comunidade">
+                <div class="campo_comunidade">
                     <label for="celular comunidade"><strong>Celular de Contato</strong></label>
-                    <input type="text" name="celular comunidade" id="celular comunidade" required>
+                    <input type="text" name="celular comunidade" id="txtCelularComunidade" required>
                 </div>
 
-                <button type="submit">Salvar</button> 
-
-            </fieldset> 
+                <button type="submit" id="btnSalvar">Salvar</button>
+            </fieldset>
         </form>
-    </body>
+    </div>
+</body>
+
+<script>
+    // Initialize Parse
+    Parse.initialize("OC7bqSRts7NmvriVfNsDcG7dG3oxoghq3xvyUmSi", "59Ckun7oKnSnaj6Wl6Mezh0b2atA4kNjzs7rmI1r");
+    Parse.serverURL = "https://parseapi.back4app.com/";
+</script>
+
 </html>
