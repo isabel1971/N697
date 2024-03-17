@@ -68,9 +68,6 @@
         <label for="expirationDate">Data de Validade:</label>
         <input type="date" id="expirationDate" name="expirationDate">
 
-        <label for="donationAmount">Valor da Doação:</label>
-        <input type="number" id="donationAmount" name="donationAmount" step="0.01">
-
         <button type="button" onclick="submitForm()">Cadastrar Produto</button>
     </form>
 
@@ -80,14 +77,13 @@
             var quantity = document.getElementById("quantity").value;
             var perishable = document.getElementById("perishable").value;
             var expirationDate = document.getElementById("expirationDate").value;
-            var donationAmount = document.getElementById("donationAmount").value;
+        
 
             console.log("Nome do Produto: " + productName);
             console.log("Quantidade: " + quantity);
             console.log("Perecível: " + perishable);
             console.log("Data de Validade: " + expirationDate);
-            console.log("Valor da Doação: " + donationAmount);
-
+         
             // Aqui você pode colocar a lógica para enviar os dados para o back-end
         }
     </script>
