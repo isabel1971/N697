@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script 
-    type="text/javascript" 
-    src="https://npmcdn.com/parse/dist/parse.min.js"
-    ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
     <style>
@@ -75,26 +71,31 @@
         <button type="button" onclick="submitForm()">Cadastrar Produto</button>
     </form>
 
-</body>
-<script>
-    // Initialize Parse
-      Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd'); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-      Parse.serverURL = "https://parseapi.back4app.com/";
+    <script src="https://npmcdn.com/parse/dist/parse.min.js" onload="initParse()"></script>
+    <script>
+        function initParse() {
+            Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd'); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+            Parse.serverURL = "https://parseapi.back4app.com/";
 
-  (async () => {
-    const myNewObject = new Parse.Object('Produtos');
-    myNewObject.set('NomeProduto', 'A string');
-    myNewObject.set('quantidade', 1);
-    myNewObject.set('perecivel', true);
-    myNewObject.set('dataValidade', new Date());
-    try {
-        const result = await myNewObject.save();
-        // Access the Parse Object attributes using the .GET method
-        console.log('Produtos created', result);
-    } catch (error) {
-        console.error('Error while creating Produtos: ', error);
-  }
-})();
+            // Now you can safely use Parse
+            (async () => {
+                const myNewObject = new Parse.Object('Produtos');
+                myNewObject.set('NomeProduto', 'A string');
+                myNewObject.set('quantidade', 1);
+                myNewObject.set('perecivel', true);
+                myNewObject.set('dataValidade', new Date());
+                try {
+                    const result = await myNewObject.save();
+                    // Access the Parse Object attributes using the .GET method
+                    console.log('Produtos created', result);
+                } catch (error) {
+                    console.error('Error while creating Produtos: ', error);
+                }
+            })();
+        }
+
+        // You can keep your other Parse-related code here
+
 (async () => {
   const Produtos = Parse.Object.extend('Produtos');
   const query = new Parse.Query(Produtos);
@@ -159,4 +160,5 @@
   }
 })();
 </script>
+</body>
 </html>
