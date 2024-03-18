@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script 
+    type="text/javascript" 
+    src="https://npmcdn.com/parse/dist/parse.min.js"
+    ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
     <style>
@@ -71,21 +75,88 @@
         <button type="button" onclick="submitForm()">Cadastrar Produto</button>
     </form>
 
-    <script>
-        function submitForm() {
-            var productName = document.getElementById("productName").value;
-            var quantity = document.getElementById("quantity").value;
-            var perishable = document.getElementById("perishable").value;
-            var expirationDate = document.getElementById("expirationDate").value;
-        
-
-            console.log("Nome do Produto: " + productName);
-            console.log("Quantidade: " + quantity);
-            console.log("Perecível: " + perishable);
-            console.log("Data de Validade: " + expirationDate);
-         
-            // Aqui você pode colocar a lógica para enviar os dados para o back-end
-        }
-    </script>
 </body>
+<script>
+    // Initialize Parse
+      Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd'); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+      Parse.serverURL = "https://parseapi.back4app.com/";
+
+  (async () => {
+    const myNewObject = new Parse.Object('Produtos');
+    myNewObject.set('NomeProduto', 'A string');
+    myNewObject.set('quantidade', 1);
+    myNewObject.set('perecivel', true);
+    myNewObject.set('dataValidade', new Date());
+    try {
+        const result = await myNewObject.save();
+        // Access the Parse Object attributes using the .GET method
+        console.log('Produtos created', result);
+    } catch (error) {
+        console.error('Error while creating Produtos: ', error);
+  }
+})();
+(async () => {
+  const Produtos = Parse.Object.extend('Produtos');
+  const query = new Parse.Query(Produtos);
+  // You can also query by using a parameter of an object
+  // query.equalTo('objectId', 'xKue915KBG');
+  try {
+    const results = await query.find();
+    for (const object of results) {
+      // Access the Parse Object attributes using the .GET method
+      const NomeProduto = object.get('NomeProduto')
+      const quantidade = object.get('quantidade')
+      const perecivel = object.get('perecivel')
+      const dataValidade = object.get('dataValidade')
+      console.log(NomeProduto);
+      console.log(quantidade);
+      console.log(perecivel);
+      console.log(dataValidade);
+    }
+  } catch (error) {
+    console.error('Error while fetching Produtos', error);
+  }
+})();
+(async () => {
+  const query = new Parse.Query(Produtos);
+  try {
+    // here you put the objectId that you want to update
+    const object = await query.get('xKue915KBG');
+    object.set('NomeProduto', 'A string');
+    object.set('quantidade', 1);
+    object.set('perecivel', true);
+    object.set('dataValidade', new Date());
+    try {
+      const response = await object.save();
+      // You can use the "get" method to get the value of an attribute
+      // Ex: response.get("<ATTRIBUTE_NAME>")
+      // Access the Parse Object attributes using the .GET method
+      console.log(response.get('NomeProduto'));
+      console.log(response.get('quantidade'));
+      console.log(response.get('perecivel'));
+      console.log(response.get('dataValidade'));
+      console.log('Produtos updated', response);
+    } catch (error) {
+      console.error('Error while updating Produtos', error);
+      }
+    } catch (error) {
+      console.error('Error while retrieving object Produtos', error);
+    }
+})();
+(async () => {
+  const query = new Parse.Query('Produtos');
+  try {
+    // here you put the objectId that you want to delete
+    const object = await query.get('xKue915KBG');
+    try {
+      const response = await object.destroy();
+      console.log('Deleted ParseObject', response);
+    } catch (error) {
+      console.error('Error while deleting ParseObject', error);
+    }
+  } catch (error) {
+    console.error('Error while retrieving ParseObject', error);
+  }
+})();
+</script>
 </html>
