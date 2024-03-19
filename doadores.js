@@ -2,12 +2,20 @@ async function criarDoador(cd) {
     cd.preventDefault();
 
     (async () => {
+    
+    let nomeDoador = document.getElementById(nome).value;
+    let cpfCnpjDoador = document.getElementById("cpfCnpj").value;
+    let enderecoDoador = document.getElementById("endereco").value;
+    let emailDoador = document.getElementById("email").value;
+    let telefoneDoador = document.getElementById("telefone").value;
+    
     const myNewObject = new Parse.Object('Doador');
-    myNewObject.set('nome', document.getElementById("nome").value);
-    myNewObject.set('cpfCnpj', document.getElementById("cpfCnpj").value);
-    myNewObject.set('endereco', document.getElementById("endereco").value);
-    myNewObject.set('email', document.getElementById("email").value);
-    myNewObject.set('telefone', document.getElementById("telefone").value);
+
+    myNewObject.set('nome', nomeDoador);
+    myNewObject.set('cpfCnpj', cpfCnpjDoador);
+    myNewObject.set('endereco', enderecoDoador);
+    myNewObject.set('email', emailDoador);
+    myNewObject.set('telefone', telefoneDoador);
     try {
         const result = await myNewObject.save();
  
