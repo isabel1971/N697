@@ -3,7 +3,7 @@ async function criarDoador(cd) {
 
     (async () => {
     
-    let nomeDoador = document.getElementById(nome).value;
+    let nomeDoador = document.getElementById("nome").value;
     let cpfCnpjDoador = document.getElementById("cpfCnpj").value;
     let enderecoDoador = document.getElementById("endereco").value;
     let emailDoador = document.getElementById("email").value;
