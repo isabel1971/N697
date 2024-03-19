@@ -94,7 +94,8 @@
             })();
         }
 
-        // You can keep your other Parse-related code here
+        async function minhaFuncaoSalvar(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
 
 (async () => {
   const Produtos = Parse.Object.extend('Produtos');
