@@ -20,8 +20,14 @@ async function criarDoador(cd) {
         const result = await myNewObject.save();
  
         console.log('Doador created', result);
+        alert(
+            "Doador cadastrado com sucesso!"
+        );
     } catch (error) {
         console.error('Error while creating Doador: ', error);
+        alert(
+            "Erro. Não foi possível cadastrar o doador."
+        )
     }
     })();
 }
