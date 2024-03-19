@@ -3,11 +3,11 @@ async function criarDoador(cd) {
 
     (async () => {
     const myNewObject = new Parse.Object('Doador');
-    myNewObject.set('nome', 'A string');
-    myNewObject.set('cpfCnpj', 1);
-    myNewObject.set('endereco', 'A string');
-    myNewObject.set('email', 'A string');
-    myNewObject.set('telefone', 1);
+    myNewObject.set('nome', document.getElementById("nome").value);
+    myNewObject.set('cpfCnpj', document.getElementById("cpfCnpj").value);
+    myNewObject.set('endereco', document.getElementById("endereco").value);
+    myNewObject.set('email', document.getElementById("email").value);
+    myNewObject.set('telefone', document.getElementById("telefone").value);
     try {
         const result = await myNewObject.save();
  
