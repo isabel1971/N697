@@ -59,12 +59,12 @@
 <body>
     <section class="doador">
         <h1 class="container__titulo">Cadastro de Doador</h1>
-        <form action="#" method="POST" onsubmit="minhaFuncaoSalvar(event)">
+        <form id="Doador" onsubmit="minhaFuncaoSalvar(event)">
             <label class="container__texto" for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
 
-            <label class="container__texto" for="cpf_cnpj">CPF/CNPJ:</label>
-            <input type="text" id="cpf_cnpj" name="cpf_cnpj" required>
+            <label class="container__texto" for="cpfCnpj">CPF/CNPJ:</label>
+            <input type="text" id="cpfCnpj" name="cpfCnpj" required>
 
             <label class="container__texto" for="endereco">Endereço:</label>
             <input type="text" id="endereco" name="endereco" required>
@@ -77,33 +77,41 @@
 
             <input type="submit" value="Cadastrar">
         </form>
+    </section>
     
-    <script src="https://npmcdn.com/parse/dist/parse.min.js" onload="initParse()"></script>
-    <script>
-        function initParse() {
-            Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd');
-            Parse.serverURL = "https://parseapi.back4app.com/";
-        }
+    <script src="node_modules/parse/dist/parse.min.js"></script>
 
+    <script>
+    Parse.serverURL = 'https://parseapi.back4app.com';
+
+    Parse.initialize(
+    'winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 
+    'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd' 
+    );
+    
         async function minhaFuncaoSalvar(event) {
             event.preventDefault();
 
             (async () => {
-                const myNewObject = new Parse.Object('Doador');
-                myNewObject.set('nome', 'A string');
-                myNewObject.set('cpfCnpj', 1);
-                myNewObject.set('endereco', 'A string');
-                myNewObject.set('email', 'A string');
-                myNewObject.set('telefone', 1);
-                try {
-                    const result = await myNewObject.save();
-                  
-                    console.log('Doador created', result);
-                } catch (error) {
-                    console.error('Error while creating Doador: ', error);
-                }
+            const myNewObject = new Parse.Object('Doador');
+            myNewObject.set('nome', 'A string');
+            myNewObject.set('cpfCnpj', 1);
+            myNewObject.set('endereco', 'A string');
+            myNewObject.set('email', 'A string');
+            myNewObject.set('telefone', 1);
+            try {
+                const result = await myNewObject.save();
+         
+                console.log('Doador created', result);
+            } catch (error) {
+                console.error('Error while creating Doador: ', error);
+            }
             })();
+        }
 
+        async function minhaFuncaoLer(event) {
+            event.preventDefault();
+         
             (async () => {
                 const Doador = Parse.Object.extend('Doador');
                 const query = new Parse.Query(Doador);
@@ -126,11 +134,15 @@
                     console.error('Error while fetching Doador', error);
                 }
             })();
+        }
+
+            async function minhaFuncaoAtualizar(event) {
+            event.preventDefault();
 
             (async () => {
                 const query = new Parse.Query(Doador);
                 try {
-                    // here you put the objectId that you want to update
+                    
                     const object = await query.get('xKue915KBG');
                     object.set('nome', 'A string');
                     object.set('cpfCnpj', 1);
@@ -139,9 +151,7 @@
                     object.set('telefone', 1);
                     try {
                         const response = await object.save();
-                        // You can use the "get" method to get the value of an attribute
-                        // Ex: response.get("<ATTRIBUTE_NAME>")
-                        // Access the Parse Object attributes using the .GET method
+                    
                         console.log(response.get('nome'));
                         console.log(response.get('cpfCnpj'));
                         console.log(response.get('endereco'));
@@ -156,8 +166,28 @@
                 }
             })();
         }
+
+            async function minhaFuncaoExcluir(event) {
+            event.preventDefault();
+
+            (async () => {
+            const query = new Parse.Query('Doador');
+            try {
+         
+                const object = await query.get('xKue915KBG');
+                try {
+                const response = await object.destroy();
+                console.log('Deleted ParseObject', response);
+                } catch (error) {
+                console.error('Error while deleting ParseObject', error);
+                }
+            } catch (error) {
+                console.error('Error while retrieving ParseObject', error);
+            }
+            })();
+        }
     </script>
-    </section>
+    
 </body>
 
 </html>
