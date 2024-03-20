@@ -95,8 +95,14 @@
 
                 const result = await myNewObject.save();
                 console.log('Produto criado:', result);
+                alert(
+                "Produto cadastrado!"
+            );
             } catch (error) {
                 console.error('Erro ao criar produto:', error);
+                alert(
+               "Erro ao criar produto."
+            )
             }
         }
     </script>
