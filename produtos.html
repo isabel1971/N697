@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-    <script type="text/javascript" src="produtos.js"></script>
     <title>Cadastro de Produtos</title>
     <style>
         body {
@@ -55,7 +52,7 @@
 
     <h2>Cadastro de Produtos</h2>
 
-    <form id="productForm">
+    <form id="productForm" onsubmit="minhaFuncaoSalvar(event)">
         <label for="productName">Nome do Produto:</label>
         <input type="text" id="productName" name="productName" required>
 
@@ -71,13 +68,37 @@
         <label for="expirationDate">Data de Validade:</label>
         <input type="date" id="expirationDate" name="expirationDate">
 
-        <button type="button" onclick="submitForm()">Cadastrar Produto</button>
+        <button type="submit">Cadastrar Produto</button>
     </form>
 
+    <script src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    
     <script>
-        Parse.initialize("winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD", "jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd");
-        Parse.serverURL = "https://parseapi.back4app.com/";
-       </script>
-   
-   </body>
-   </html>
+    
+            Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd'); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+            Parse.serverURL = "https://parseapi.back4app.com/";
+
+        async function minhaFuncaoSalvar(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const productName = document.getElementById("productName").value;
+            const quantity = document.getElementById("quantity").value;
+            const perishable = document.getElementById("perishable").value;
+            const expirationDate = document.getElementById("expirationDate").value;
+
+            try {
+                const myNewObject = new Parse.Object('Produtos');
+                myNewObject.set('NomeProduto', productName);
+                myNewObject.set('quantidade', parseInt(quantity));
+                myNewObject.set('perecivel', perishable === 'sim');
+                myNewObject.set('dataValidade', new Date(expirationDate));
+
+                const result = await myNewObject.save();
+                console.log('Produto criado:', result);
+            } catch (error) {
+                console.error('Erro ao criar produto:', error);
+            }
+        }
+    </script>
+</body>
+</html>
