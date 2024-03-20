@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,11 +53,9 @@
         }
     </style>
 </head>
-
 <body>
-    <section class="coleta">
     <h1>Cadastro de Usuário</h1>
-    <form action="#" method="POST" onsubmit="minhaFuncaoSalvar(event)">
+    <form action="#" method="POST" onsubmit="funcaoColeta(event)">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
@@ -82,11 +79,43 @@
         <input type="submit" value="Cadastrar">
     </form>
 
-</section>
-</body>
-<script>
-    Parse.initialize("winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD", "jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd");
-    Parse.serverURL = "https://parseapi.back4app.com/";
-</script>
+    <script src="https://npmcdn.com/parse/dist/parse.min.js"></script>
     
+    <script>
+    
+            Parse.initialize('winm9cbnUUSt37DOLHgvXRBdSbRLRyv4RXW7WvvD', 'jcrjxZKfxwXXqldjxT9SIG1tPUil7O0YzlUc70Dd'); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+            Parse.serverURL = "https://parseapi.back4app.com/";
+
+        async function funcaoColeta(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const productName = document.getElementById("nome").value;
+            const cpf_cnpj = document.getElementById("cpf_cnpj").value;
+            const tipo_transporte = document.getElementById("tipo_transporte").value;
+            const email = document.getElementById("email").value;
+            const telefone = document.getElementById("telefone").value;
+
+            try {
+                const myNewObject = new Parse.Object('Coleta');
+                myNewObject.set('nome', productName);
+                myNewObject.set('cpfCnpj', cpf_cnpj);
+                myNewObject.set('tipoTransporte', tipo_transporte);
+                myNewObject.set('email', email);
+                myNewObject.set('telefone', parseInt(telefone));
+
+                const result = await myNewObject.save();
+                console.log('Produto criado:', result);
+                alert(
+                "Transportador cadastrado!"
+            );
+            } catch (error) {
+                console.error('Erro ao criar produto:', error);
+                alert(
+               "Erro ao registrar voluntário."
+            )
+            }
+        }
+    </script>
+
+</body>
 </html>
